@@ -15,7 +15,7 @@ table {
 .banner{
 	width: 1000px;
 	height: 150px;
-	background-image: url(../images/site/banner5.png);
+	background-image: url(../images/site/banner.png);
 	background-size: cover;
     background-position: center center;
 }
