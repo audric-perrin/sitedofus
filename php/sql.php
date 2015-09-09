@@ -14,18 +14,18 @@
   function getMonsters($query){
     $results = runQuery($query);
     $monsters = array();
+    $allZone = allZone();
     foreach ($results as $row) {
-      $row['zones'] = getZones($row);
+      $row['zones'] = getZones($row, $allZone);
       $monsters[] = $row;
     }
     return $monsters;
   }
 
   // Récupération des zones du monstre
-  function getZones($row){
+  function getZones($row, $allZone){
     $zones = array();
-    $results = allZone();
-    foreach ($results as $zoneRow) {
+    foreach ($allZone as $zoneRow) {
       if ($row['id'] == $zoneRow['monster_id']){
         $zones[] = $zoneRow['zone'];
       }
