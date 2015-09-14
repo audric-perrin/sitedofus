@@ -3,6 +3,9 @@
 	function printFunction(){
 		search();
 		zoneDropDown();
+		buttonSelectOwn();
+		buttonSelectCatchable();
+		buttonTest();
 	}
 
 	function search(){
@@ -52,6 +55,24 @@
 			}
 		}
 		return $zone;
+	}
+
+	function buttonSelectOwn(){
+		echo "Trier par monstre possédé";
+		?><form method="POST">
+			<button type="submit" name="selectOwn" value="1" class="button"></button>
+		</form><?php
+	}
+
+	function buttonSelectCatchable(){
+		echo "Trier par monstre à attraper";
+		?><form method="POST">
+			<button type="submit" name="selectCatchable" value="1" class="button"></button>
+		</form><?php
+	}
+
+	function buttonTest(){
+		?><br/><button class="button button-test"><i class="fa fa-bell-o"></i></button><?php
 	}
 
  ?>

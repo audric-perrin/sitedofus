@@ -18,7 +18,10 @@
 				<?php buttonCatch($row) ?>
 			</div>
 			<div class="content">
-				<div class="img-monster"><?php printImage($row) ?></div>
+				<div class="img-monster" 
+					style = "background-image: url('images/monsters/<?php echo $row['id']; ?>.png');">
+						<?php printImage($row) ?>
+				</div>
 				<div class="info">
 					<div class="monster-name"><?php echo $row['monster'] ?></div>
 					<?php printPrice($row) ?>
@@ -77,9 +80,11 @@
 
 	//Affiche l'image du monstre
 	function printImage($row){
-		?>
-			<img src="../../images/monsters/<?php echo $row['id']; ?>.png" alt="<?php echo $row['name']; ?>">
-		<?php
+		if ($row['catchable'] == 1 and $row['owned'] == 0){
+			?>
+			<img src="images/site/wanted.png">
+			<?php
+		}
 	}
 
 	//Affiche le prix et le bouton valider
@@ -115,7 +120,7 @@
 			echo "A capturer";
 		}
 		else {
-			echo "A obtenir";
+			echo "A acheter";
 		}
 	}
 

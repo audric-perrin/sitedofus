@@ -4,6 +4,7 @@
 	require_once('php/print/printResult.php');
 	require_once('php/print/printFunction.php');
 	require_once('php/print/printFooter.php');
+	require_once('php/print/printSummary.php');
 	require_once('php/definedQuery.php');
 	require_once('php/update.php');
  ?>
@@ -31,7 +32,7 @@
 			</td>
 			<!-- SUMMARY -->
 			<td rowspan="2">
-				3
+				<div class="summary"><?php printSummary() ?></div>
 			</td>
 		</tr>
 		<!-- RESULT -->
