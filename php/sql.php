@@ -1,4 +1,6 @@
 <?php
+  // Debug query
+  $sqlRequests= array();
 
 	// Open the SQL connection
 	$conn = mysqli_connect('localhost', 'root', 'root', 'dofus2.0') or die(mysql_error());
@@ -7,6 +9,9 @@
   // Execution de la query
 	function runQuery($query){
 		global $conn;
+    // Debug query
+    global $sqlRequests;
+    $sqlRequests[]=$query;
 		return $conn->query($query);
 	}
 

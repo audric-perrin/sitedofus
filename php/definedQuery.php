@@ -2,37 +2,60 @@
 	
 	// Definition de la rêquete
 	function Query(){
-		$filterZone = '';
-		$filterSearch = '';
-		if (isset($_GET['zone'])){
-			$filterZone = ' WHERE zone = "' . addslashes(urldecode($_GET['zone'])) . '"';
-		}
-		elseif (isset($_GET['search'])){
-			$filterSearch = ' WHERE (name LIKE "%' . addslashes($_GET['search']) . '%" OR monster LIKE "%' . addslashes($_GET['search']) . '%")';
-		}
-		$filter = queryFilter();
-		$query = 'SELECT * FROM archi' . $filterZone . $filterSearch . $filter . ' ORDER BY price';
+		$queryFilter = queryFilter();
+		$querySort = querySort();
+		$query = 'SELECT * FROM archi' . $queryFilter . $querySort;
 		$monsters = getMonsters($query);
 		return $monsters;
 	}
 
 	// Definition des filtres
 	function queryFilter(){
-		$filterOwn = '';
-		if (isset($_POST['selectOwn']) and isset($_GET['zone']) or isset($_GET['search'])){
-			$filterOwn = ' AND owned = 1';
+		$filter = array();
+		if (isset($_GET['search']) and $_GET['search'] != ''){
+			$filter[] = ' (name LIKE "%' . addslashes($_GET['search']) . '%" OR monster LIKE "%' . addslashes($_GET['search']) . '%")';
 		}
-		elseif (isset($_POST['selectOwn'])) {
-			$filterOwn = ' WHERE owned = 1';
+		if (isset($_GET['zone']) and $_GET['zone'] != ''){
+			$filter[] = ' zone = "' . addslashes(urldecode($_GET['zone'])) . '"';
 		}
-		if (isset($_POST['selectCatchable']) and isset($_GET['zone']) or isset($_GET['search'])){
-			$filterOwn = ' AND catchable = 1 AND owned = 0';
+		if (isset($_GET['buy'])){
+			$filter['own'] = ' owned = 0';
+			$filter['catch'] = ' catchable = 0';
 		}
-		elseif (isset($_POST['selectCatchable'])) {
-			$filterOwn = ' WHERE catchable = 1 AND owned = 0';
+		if (isset($_GET['catch'])){
+			$filter['own'] = ' owned = 0';
+			$filter['catch'] = ' catchable = 1';
 		}
-		$filter = $filterOwn;
-		return $filter;
+		if (isset($_GET['own'])){
+			$filter['own'] = ' owned = 1';
+		}
+		if (count($filter) == 0){
+			$queryFilter = "";
+		}
+		else {
+			$queryFilter = ' WHERE ' . join(' AND', $filter);
+		}
+		return $queryFilter;
 	}
 
+	// Definition des tries
+	function querySort(){
+		if (!isset($_GET['sort'])) {
+			return '';
+		}
+		$sort = $_GET['sort'];
+		if ($sort == 'priceAsc'){
+			return ' ORDER BY price ASC';
+		}
+		if ($sort == 'priceDesc'){
+			return ' ORDER BY price DESC';
+		}
+		if ($sort == 'name'){
+			return ' ORDER BY name';
+		}
+		if ($sort == 'zoneFilter'){
+			return ' ORDER BY zone';
+		}
+		return '';
+	}
  ?>

@@ -54,28 +54,25 @@
 
 	// Bouton monstre à attraper
 	function buttonCatch($row){
-		?>
-			<form method="POST">
-				<input type="hidden" name="catchId" value="<?php echo $row["id"];?>">
+		?><div class="banner-form">
+				<input type="hidden" class="catchId" name="catchId" value="<?php echo $row["id"];?>">
 				<button type="submit" class='button button-catch'>
 					<i class="fa fa-crosshairs"></i>
 				</button>
-				<input type="hidden" name="oldCatchable" value="<?php echo $row["catchable"];?>">
+				<input type="hidden" class="oldCatch" name="oldCatchable" value="<?php echo $row["catchable"];?>">
 			</form>
-		<?php
+		</div><?php
 	}
 
 	// Bouton monstre possédé
 	function buttonOwn($row){
-		?>
-			<form method="POST">
-				<input type="hidden" name="ownId" value="<?php echo $row["id"];?>">
-				<button type="submit" class='button button-own'>
-					<i class="fa fa-check"></i>
-				</button>
-				<input type="hidden" name="oldOwned" value="<?php echo $row["owned"];?>">
-			</form>
-		<?php
+		?><div class="banner-form">
+			<input type="hidden" class="ownId" name="ownId" value="<?php echo $row["id"];?>">
+			<button type="submit" class='button button-own'>
+				<i class="fa fa-check"></i>
+			</button>
+			<input type="hidden" class="oldOwn" name="oldOwned" value="<?php echo $row["owned"];?>">
+		</div><?php
 	}
 
 	//Affiche l'image du monstre

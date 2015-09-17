@@ -1,75 +1,60 @@
 <?php
 
 	function printFunction(){
-		search();
-		zoneDropDown();
-		buttonSelectOwn();
-		buttonSelectCatchable();
 		buttonTest();
-	}
-
-	function search(){
 		?>
-		<div class="box-search">
-			<form action="index.php" method="GET">
-				<input 
-					class="text-search" 
-					type="text" name="search" 
-					placeholder="Recherche..." 
-					autocapitalize = "off" 
-					autocorrect = "off" 
-					autocomplete = "off"
-					spellcheck = "false"
-					onClick="this.setSelectionRange(0, this.value.length)"
-				/>
-				<button class="button-search" type="submit">
-					<i class="fa fa-search"></i>
-				</button>
-			 </form>	
+		<?php
+			$stats=getStats();
+			$width=200;
+			$owned=($stats['ownedArchi']*$width)/$stats['totalArchi'];
+		?>
+		<div class="summary main-block">
+			<div class="count-bar" style="width:<?php echo $width ?>px">
+				<div class="count-bar-result" style="width:<?php echo $owned ?>px"></div>
+			</div>
+			<br/>
+			<div class="resultOwned">
+				<?php
+				echo $stats['ownedArchi'] . '/' . $stats['totalArchi'];
+				?>
+			</div>
+			<br/>
+				<?php echo 'A obtenir ' . $stats['catchableArchi'] . ' monstres' ?>
+			<br/>
+			<div class="priceArchi">
+				<?php 
+				echo number_format($stats['priceArchi'], 0, ',', ' ') . 'K';
+				 ?>
+			</div>
 		</div>
 		<?php
 	}
 
-	function zoneDropDown(){
-		$zone = listZone();
-		?><div class="zone-drop-down">
-			<form action="index.php" method="GET">
-				<select name="zone"><?php
-					foreach ($zone as $resultZone) {
-						$selected = (isset($_GET['zone']) and $_GET['zone'] == $resultZone) ? ' selected' : '';
-						echo '<option value="' . $resultZone . '"' . $selected . '>' . $resultZone . '</option>';
-					}?>
-				</select>
-				<input type="submit" value="ok">
-			</form>
-		</div><?php
-	}
-
-	function listZone(){
-		$zoneQuery = 'SELECT zone FROM archi ORDER BY zone';
-		$result = runQuery($zoneQuery);
-		$zone = array();
-		foreach ($result as $row) {
-			if (!in_array($row['zone'], $zone)){
-				$zone[] = $row['zone'];
-			}
+	function getStats(){
+	$selectArchi ='SELECT id, owned, price, catchable FROM archi';
+	$resultsArchi = runQuery($selectArchi);
+	$totalArchi = 0;
+	$ownedArchi = 0;
+	$priceArchi = 0;
+	$catchableArchi = 0;
+	while ($row = $resultsArchi->fetch_assoc()){
+		$totalArchi++;
+		if ($row['catchable'] == 0 and $row['owned'] == 0){
+			$priceArchi += $row['price'];
 		}
-		return $zone;
+		if ($row['owned']==1){
+			$ownedArchi++;
+		}
+		elseif ($row['catchable'] == 1) {
+			$catchableArchi++;
+		}
 	}
-
-	function buttonSelectOwn(){
-		echo "Trier par monstre possédé";
-		?><form method="POST">
-			<button type="submit" name="selectOwn" value="1" class="button"></button>
-		</form><?php
-	}
-
-	function buttonSelectCatchable(){
-		echo "Trier par monstre à attraper";
-		?><form method="POST">
-			<button type="submit" name="selectCatchable" value="1" class="button"></button>
-		</form><?php
-	}
+  	return array(
+  	'totalArchi' => $totalArchi,
+  	'ownedArchi' => $ownedArchi,
+  	'priceArchi' => $priceArchi,
+  	'catchableArchi' => $catchableArchi);
+}
 
 	function buttonTest(){
 		?><br/><button class="button button-test"><i class="fa fa-bell-o"></i></button><?php
