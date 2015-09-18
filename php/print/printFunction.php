@@ -1,63 +1,54 @@
 <?php
 
 	function printFunction(){
-		buttonTest();
-		?>
-		<?php
-			$stats=getStats();
-			$width=200;
-			$owned=($stats['ownedArchi']*$width)/$stats['totalArchi'];
-		?>
-		<div class="summary main-block">
-			<div class="count-bar" style="width:<?php echo $width ?>px">
-				<div class="count-bar-result" style="width:<?php echo $owned ?>px"></div>
-			</div>
-			<br/>
-			<div class="resultOwned">
-				<?php
-				echo $stats['ownedArchi'] . '/' . $stats['totalArchi'];
-				?>
-			</div>
-			<br/>
-				<?php echo 'A obtenir ' . $stats['catchableArchi'] . ' monstres' ?>
-			<br/>
-			<div class="priceArchi">
-				<?php 
-				echo number_format($stats['priceArchi'], 0, ',', ' ') . 'K';
-				 ?>
-			</div>
-		</div>
-		<?php
+		$stats = getStats();
+		?><div class="stat-bar">
+			<div class="owned-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["ownArchi"])?>px"><?php echo $stats['ownArchi'] ?></div>
+			<div class="catchable-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["catchArchi"])?>px"><?php echo $stats['catchArchi'] ?></div>
+			<div class="buy-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["buyArchi"])?>px"><?php echo $stats['buyArchi'] ?></div>
+		</div><?php
+	}
+
+	function definedWidth($total, $number){
+		$totalWidth = 858;
+		$percentageWidth = $number / $total;
+		$width = $percentageWidth * $totalWidth;
+		return $width;
 	}
 
 	function getStats(){
-	$selectArchi ='SELECT id, owned, price, catchable FROM archi';
-	$resultsArchi = runQuery($selectArchi);
-	$totalArchi = 0;
-	$ownedArchi = 0;
-	$priceArchi = 0;
-	$catchableArchi = 0;
-	while ($row = $resultsArchi->fetch_assoc()){
-		$totalArchi++;
-		if ($row['catchable'] == 0 and $row['owned'] == 0){
-			$priceArchi += $row['price'];
+		$allArchiQuery = 'SELECT id, owned, price, catchable FROM archi';
+		$result = runQuery($allArchiQuery);
+		$totalArchi = 0;
+		$buyArchi = 0;
+		$ownArchi = 0;
+		$catchArchi = 0;
+		$priceBuyArchi = 0;
+		$priceOwnArchi = 0;
+		$priceCatchArchi = 0;
+		foreach ($result as $row) {
+			$totalArchi++;
+			if ($row['owned'] == 0 and $row['catchable'] == 0) {
+				$buyArchi ++;
+				$priceBuyArchi = $priceBuyArchi + $row['price'];
+			}
+			elseif ($row['owned'] == 1 and $row['catchable'] == 0) {
+				$ownArchi ++;
+				$priceOwnArchi = $priceOwnArchi + $row['price'];
+			}
+			else {
+				$catchArchi ++;
+				$priceCatchArchi = $priceCatchArchi + $row['price'];
+			}
 		}
-		if ($row['owned']==1){
-			$ownedArchi++;
-		}
-		elseif ($row['catchable'] == 1) {
-			$catchableArchi++;
-		}
-	}
-  	return array(
-  	'totalArchi' => $totalArchi,
-  	'ownedArchi' => $ownedArchi,
-  	'priceArchi' => $priceArchi,
-  	'catchableArchi' => $catchableArchi);
-}
-
-	function buttonTest(){
-		?><br/><button class="button button-test"><i class="fa fa-bell-o"></i></button><?php
-	}
+		return array(
+			'totalArchi'=> $totalArchi,
+			'buyArchi'=> $buyArchi,
+			'ownArchi'=> $ownArchi,
+			'catchArchi'=> $catchArchi,
+			'priceBuyArchi'=> $priceBuyArchi,
+			'priceOwnArchi'=> $priceOwnArchi,
+			'priceCatchArchi'=> $priceCatchArchi);
+  	}
 
  ?>
