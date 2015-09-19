@@ -5,32 +5,46 @@
     padding: 10px;
     margin: 15px 0px 15px 0px;
     background-size: cover;
+    border-radius: 5px;
 }
 
 	.stat-bar{
-		display: block;
-		height: 20px;
-		border: solid black 2px;
+		display: inline-block;
+		margin-top: 1px;
+	    height: 16px;
+	    border: solid #f6f6f6 2px;
+	    border-radius: 10px;
+	    background-size: cover;
+	    background-color: #d2bea6;
 	}
 
-		.owned-bar{
-			display: inline-block;
-			background-color: green;
-			height: 20px;
-			text-align: center;
+		.bar{
+		    display: inline-block;
+		    background: linear-gradient(to top, #8D612E 0%,#8D612E 20%,#8D612E 30%,#b3834c 100%);
+		    height: 16px;
+		    text-align: center;
+		    border-radius: 8px 0px 0px 7px;
 		}
 
-		.catchable-bar{
+		.bar-percentage{
 			display: inline-block;
-			background-color: orange;
 			height: 20px;
-			text-align: center;
+			color: black;
+			font-size: 13px;
+			margin-top: 4.5px;
 		}
 
-		.buy-bar{
-			display: inline-block;
-			background-color: red;
-			height: 20px;
-			text-align: center;
-		}
+	.stat-bar-own{
+		width: 300px;
+	}
+
+	.stat-bar-catch{
+		display: inline-block;
+		width: 300px;
+	}
+
+	.stat-bar-buy{
+		display: inline-block;
+		width: 300px;
+	}
 

@@ -2,19 +2,44 @@
 
 	function printFunction(){
 		$stats = getStats();
-		$totalWidth = 868;
-		?><div class="stat-bar">
+		$totalWidth = 300;
+		echo 'Progression'
+		?><br/>
+		<div class="stat-bar stat-bar-own">
 			<div
-			class="owned-bar"
-			style="width:<?php echo $widthOwned = number_format(definedWidth($stats['totalArchi'], $stats['ownArchi'], $totalWidth),0)?>px"
-			></div><div
-			class="catchable-bar"
-			style="width:<?php echo $widthCatchable = number_format(definedWidth($stats['totalArchi'], $stats['catchArchi'], $totalWidth),0)?>px"
-			></div><div
-			class="buy-bar"
-			style="width:<?php echo $widthBuy = $totalWidth - $widthOwned - $widthCatchable ?>px"
-			></div>
-		</div><?php
+			class="bar"
+			style="width:<?php echo number_format(definedWidth($stats['totalArchi'], $stats['ownArchi'], $totalWidth),0)?>px">
+			</div>
+		</div>
+		<div class="bar-percentage">
+			<?php echo $stats['ownArchi'] . ' monstres possédés / ' . $stats['totalArchi'] ?>
+		</div>
+		<br/><br/><?php
+		echo 'Monstre restant à capturer';
+		?><br/>
+		<div class="stat-bar stat-bar-catch">
+			<div
+			class="bar"
+			style="width:<?php echo number_format(definedWidth($stats['totalArchi'], $stats['catchArchi'], $totalWidth),0)?>px">
+			</div>
+		</div>
+		<div class="bar-percentage">
+			<?php echo $stats["catchArchi"] . ' monstres à capturer (valeur ' . number_format($stats["priceCatchArchi"], 0, ',', ' ') . 'K)'?>
+		</div>
+		<br/><br/><?php
+		echo 'Monstre restant à acheter';
+		?><br/>
+		<div class="stat-bar stat-bar-buy">
+			<div
+			class="bar"
+			style="width:<?php echo number_format(definedWidth($stats['totalArchi'], $stats['buyArchi'], $totalWidth),0)?>px">
+			</div>
+		</div>
+		<div class="bar-percentage">
+			<?php echo $stats["buyArchi"] . ' monstres à acheter (valeur ' . number_format($stats["priceBuyArchi"], 0, ',', ' ') . 'K)'?>
+		</div>
+
+		<?php
 	}
 
 	function definedWidth($total, $number, $totalWidth){
