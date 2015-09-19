@@ -1,9 +1,10 @@
 .function{
 	display: inline-block;
-	width: 857px;
-	background-color: #f6f6f6;
-	padding: 15px;
-	margin: 5px;
+    width: 872px;
+    background-color: #f6f6f6;
+    padding: 10px;
+    margin: 15px 0px 15px 0px;
+    background-size: cover;
 }
 
 	.stat-bar{
@@ -23,7 +24,6 @@
 			display: inline-block;
 			background-color: orange;
 			height: 20px;
-			margin-left: -3px;
 			text-align: center;
 		}
 
@@ -31,7 +31,6 @@
 			display: inline-block;
 			background-color: red;
 			height: 20px;
-			margin-left: -9px;
 			text-align: center;
 		}
 

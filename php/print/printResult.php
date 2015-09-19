@@ -100,9 +100,6 @@
 					autocomplete = "off" 
 					spellcheck = "false"
 				/>
-				<button class ="button button-price" type="submit">
-					<i class="fa fa-play"></i>
-				</button>
 				<input type="hidden" name="priceId" value="<?php echo $row["id"];?>"/>
 			</form>
 		<?php

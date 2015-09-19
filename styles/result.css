@@ -150,6 +150,7 @@
 
 			.zone-price{
 				margin: 5px 0px 3px 0px;
+				padding-left: 17px;
 				height: 20px;
 			}
 
@@ -162,17 +163,6 @@
 				border-radius: 10px;
 				outline: none;
 				vertical-align: top;
-			}
-
-			.button-price{
-				border-color: #8D612E;
-				color: #8D612E;
-				padding-left: 5px;
-    			font-size: 12px;
-			}
-
-			.button-price:hover{
-				color: #B59471;
 			}
 
 			.zone a{

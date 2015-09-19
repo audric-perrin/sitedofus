@@ -2,15 +2,22 @@
 
 	function printFunction(){
 		$stats = getStats();
+		$totalWidth = 868;
 		?><div class="stat-bar">
-			<div class="owned-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["ownArchi"])?>px"><?php echo $stats['ownArchi'] ?></div>
-			<div class="catchable-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["catchArchi"])?>px"><?php echo $stats['catchArchi'] ?></div>
-			<div class="buy-bar" style="width:<?php echo definedWidth($stats["totalArchi"], $stats["buyArchi"])?>px"><?php echo $stats['buyArchi'] ?></div>
+			<div
+			class="owned-bar"
+			style="width:<?php echo $widthOwned = number_format(definedWidth($stats['totalArchi'], $stats['ownArchi'], $totalWidth),0)?>px"
+			></div><div
+			class="catchable-bar"
+			style="width:<?php echo $widthCatchable = number_format(definedWidth($stats['totalArchi'], $stats['catchArchi'], $totalWidth),0)?>px"
+			></div><div
+			class="buy-bar"
+			style="width:<?php echo $widthBuy = $totalWidth - $widthOwned - $widthCatchable ?>px"
+			></div>
 		</div><?php
 	}
 
-	function definedWidth($total, $number){
-		$totalWidth = 858;
+	function definedWidth($total, $number, $totalWidth){
 		$percentageWidth = $number / $total;
 		$width = $percentageWidth * $totalWidth;
 		return $width;
@@ -32,11 +39,11 @@
 				$buyArchi ++;
 				$priceBuyArchi = $priceBuyArchi + $row['price'];
 			}
-			elseif ($row['owned'] == 1 and $row['catchable'] == 0) {
+			elseif ($row['owned'] == 1) {
 				$ownArchi ++;
 				$priceOwnArchi = $priceOwnArchi + $row['price'];
 			}
-			else {
+			elseif ($row['owned'] == 0 and $row['catchable'] == 1){
 				$catchArchi ++;
 				$priceCatchArchi = $priceCatchArchi + $row['price'];
 			}
