@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="bar-percentage">
-			<?php echo $stats['ownArchi'] . ' monstres possédés / ' . $stats['totalArchi'] ?>
+			<?php echo $stats['ownArchi'] . ' Archi-monstres possédés / ' . $stats['totalArchi'] ?>
 		</div>
 		<br/><br/><?php
 		echo 'Monstre restant à capturer';
@@ -24,7 +24,12 @@
 			</div>
 		</div>
 		<div class="bar-percentage">
-			<?php echo $stats["catchArchi"] . ' monstres à capturer (valeur ' . number_format($stats["priceCatchArchi"], 0, ',', ' ') . 'K)'?>
+			<?php echo $stats["catchArchi"] . ' Archi-monstres à capturer (valeur ' . number_format($stats["priceCatchArchi"], 0, ',', ' ') . 'K)';
+			if ($stats['catchNotPrice'] != 0){
+				echo '<br/>';
+				echo "Attention! " . $stats['catchNotPrice'] . " Archi-monstres n'ont pas de prix renseignés";
+
+			}?>		
 		</div>
 		<br/><br/><?php
 		echo 'Monstre restant à acheter';
@@ -36,7 +41,11 @@
 			</div>
 		</div>
 		<div class="bar-percentage">
-			<?php echo $stats["buyArchi"] . ' monstres à acheter (valeur ' . number_format($stats["priceBuyArchi"], 0, ',', ' ') . 'K)'?>
+			<?php echo $stats["buyArchi"] . ' Archi-monstres à acheter pour une valeur de ' . number_format($stats["priceBuyArchi"], 0, ',', ' ') . 'K';
+			if ($stats['buyNotPrice'] != 0){
+				echo '<br/>';
+				echo "Attention! " . $stats['buyNotPrice'] . " Archi-monstres n'ont pas de prix renseignés";
+			}?>
 		</div>
 
 		<?php
@@ -58,11 +67,16 @@
 		$priceBuyArchi = 0;
 		$priceOwnArchi = 0;
 		$priceCatchArchi = 0;
+		$catchNotPrice = 0;
+		$buyNotPrice = 0;
 		foreach ($result as $row) {
 			$totalArchi++;
 			if ($row['owned'] == 0 and $row['catchable'] == 0) {
 				$buyArchi ++;
 				$priceBuyArchi = $priceBuyArchi + $row['price'];
+				if ($row['price'] == 0 ){
+					$buyNotPrice ++;
+				}
 			}
 			elseif ($row['owned'] == 1) {
 				$ownArchi ++;
@@ -71,6 +85,9 @@
 			elseif ($row['owned'] == 0 and $row['catchable'] == 1){
 				$catchArchi ++;
 				$priceCatchArchi = $priceCatchArchi + $row['price'];
+				if ($row['price'] == 0 ){
+					$catchNotPrice ++;
+				}
 			}
 		}
 		return array(
@@ -80,7 +97,9 @@
 			'catchArchi'=> $catchArchi,
 			'priceBuyArchi'=> $priceBuyArchi,
 			'priceOwnArchi'=> $priceOwnArchi,
-			'priceCatchArchi'=> $priceCatchArchi);
+			'priceCatchArchi'=> $priceCatchArchi,
+			'catchNotPrice' => $catchNotPrice,
+			'buyNotPrice' => $buyNotPrice);
   	}
 
  ?>
