@@ -1,50 +1,143 @@
 .function{
 	display: inline-block;
-    width: 872px;
+    width: 892px;
     background-color: #f6f6f6;
-    padding: 10px;
     margin: 15px 0px 15px 0px;
     background-size: cover;
     border-radius: 5px;
 }
 
-	.stat-bar{
+	.line-owned{
+		display: block;
+		height: 60px;
+		margin-top: 15px;
+		margin-right: 15px;
+		margin-left: 15px;
+	}
+
+	.line-catchable{
+		display: block;
+		height: 60px;
+		margin-top: 15px;
+		margin-right: 15px;
+		margin-left: 15px;
+	}
+
+	.line-buy{
+		display: block;
+		height: 60px;
+		margin: 15px;
+	}
+
+	.box-icone{
 		display: inline-block;
-		margin-top: 1px;
+		width: 60px;
+		height: 60px;
+		background-color: #D0AF8A;
+		border-radius: 5px;
+		color: #8C6133;
+		font-size: 50px;
+		text-align: center;
+	}
+
+	.box-icone-kamas{
+		background-image: url(../images/site/kamas.png);
+		background-size: cover;
+    	background-position: center center;
+	}
+
+	.box-icone i{
+		display: inline-block;
+		height: 50px;
+		width: 50px;
+		vertical-align: middle;
+	}
+
+	.box-bar{
+		display: inline-block;
+		height: 60px;
+		width: 370px;
+		background-color: #D0AF8A;
+		border-radius: 5px;
+		margin-left: 8px;
+	}
+
+	.box-number-result{
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		background-color: rgba(0,0,0,0.13);
+		margin-top: 10px;
+		margin-left: 10px;
+		border-radius: 5px;
+	}
+
+	.result-text{
+		display: inline-block;
+		width: 40px;
+		font-size: 16px;
+		margin-top: 12px;
+		color: #f6f6f6;
+		text-align: center;
+	}
+
+	.empty-bar{
+		display: inline-block;
 	    height: 16px;
-	    border: solid #f6f6f6 2px;
-	    border-radius: 10px;
-	    background-size: cover;
-	    background-color: #d2bea6;
+	    width: 300px;
+	    background-color: rgba(0,0,0,0.13);
+	    border-radius: 8px;
+	    margin-top: 22px;
+	    margin-left: 7px;
 	}
 
-		.bar{
-		    display: inline-block;
-		    background: linear-gradient(to top, #8D612E 0%,#8D612E 20%,#8D612E 30%,#b3834c 100%);
-		    height: 16px;
-		    text-align: center;
-		    border-radius: 8px 0px 0px 7px;
-		}
-
-		.bar-percentage{
-			display: inline-block;
-			height: 20px;
-			color: black;
-			font-size: 13px;
-			margin-top: 4.5px;
-		}
-
-	.stat-bar-own{
-		width: 300px;
-	}
-
-	.stat-bar-catch{
+	.percentage-bar{
 		display: inline-block;
-		width: 300px;
+	    height: 16px;
+	    background-color: #f6f6f6;
+	    border-radius: 8px;
 	}
 
-	.stat-bar-buy{
+	.box-info{
 		display: inline-block;
-		width: 300px;
+	    height: 60px;
+	    background-color: #D0AF8A;
+	    margin-left: 8px;
+	    border-radius: 5px;
+	    padding-left: 10px;
+	    padding-right: 10px;
 	}
 
+	.box-number-info{
+		display: inline-block;
+	    height: 28px;
+	    background-color: rgba(0,0,0,0.13);
+	    border-radius: 5px;
+	    margin-top: 10px;
+	    color: #f6f6f6;
+	    font-size: 16px;
+	    padding-top: 12px;
+	    padding-right: 10px;
+	    padding-left: 10px;
+	}
+
+	.box-alert{
+		display: inline-block;
+	    height: 40px;
+	    width: 40px;
+	    background-color: rgba(0,0,0,0.13);
+	    border-radius: 5px;
+	    color: #f6f6f6;
+	    margin-left: 6px;
+	    margin-top: 10px;
+	    text-align: center;
+	    font-size: 30px;
+	}
+
+	.box-alert i{
+		display: inline-block;
+	    height: 40px;
+	    width: 40px;
+	    vertical-align: middle;
+	    padding-top: 5px;
+	}
